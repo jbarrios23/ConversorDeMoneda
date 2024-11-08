@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "ConversorDeMoneda",
-    "slug": "ConversorDeMoneda",
+    "name": "CurrencyConverter",
+    "slug": "CurrencyConverter",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_all.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon_all.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -16,12 +16,27 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon_all.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {
+        "networkSecurityConfig": {
+          "cleartextTrafficPermitted": true
+        }
+      },
+      "package": "com.jbarrios23.CurrencyConverter"
     },
+    "permissions": [
+      "INTERNET",
+      "ACCESS_NETWORK_STATE"
+    ],
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon_all.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d27add98-a089-49ec-a94a-613950a671f6"
+      }
     }
   }
 }

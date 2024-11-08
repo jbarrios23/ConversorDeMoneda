@@ -29,7 +29,7 @@ export default function ResultScreen({ route }) {
       ) : (
         <View style={styles.resultContainer}>
           <Text style={styles.resultText}>
-            {amount} {fromCurrency} es aproximadamente
+            {amount} {fromCurrency} is approximately
           </Text>
           <Text style={styles.convertedText}>
             {convertedAmount} {toCurrency}
