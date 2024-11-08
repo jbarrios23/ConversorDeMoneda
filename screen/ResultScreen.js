@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import axios from 'axios';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { getExchangeRate } from '../services/ExchangeService';
 
 export default function ResultScreen({ route }) {
   const { amount, fromCurrency, toCurrency } = route.params;
   const [convertedAmount, setConvertedAmount] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getExchangeRate = async () => {
+    const fetchExchange = async () => {
       try {
-        const response = await axios.get(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
-        const rate = response.data.rates[toCurrency];
-        setConvertedAmount((amount * rate).toFixed(2));
+        const responseGet = await getExchangeRate(amount, fromCurrency, toCurrency);
+        console.log("From Result Screen", responseGet);
+        setConvertedAmount(responseGet);
       } catch (error) {
-        console.error('Error fetching exchange rate', error);
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
-
-    getExchangeRate();
+    fetchExchange();   
   }, [amount, fromCurrency, toCurrency]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.result}>
-        {amount} {fromCurrency} es aproximadamente {convertedAmount} {toCurrency}
-      </Text>
+      {loading ? (
+        <ActivityIndicator size="large" color="#007BFF" />
+      ) : (
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultText}>
+            {amount} {fromCurrency} es aproximadamente
+          </Text>
+          <Text style={styles.convertedText}>
+            {convertedAmount} {toCurrency}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -35,9 +46,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    backgroundColor: '#f2f2f2',
   },
-  result: {
+  resultContainer: {
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
+  },
+  resultText: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  convertedText: {
     fontSize: 24,
-    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#007BFF',
   },
 });

@@ -17,7 +17,7 @@ export default function HomeScreen({ navigation }) {
                 style={styles.picker}>
                 <Picker.Item label="USD" value="USD" />
                 <Picker.Item label="EUR" value="EUR" />
-                {/* Agrega más monedas según sea necesario */}
+              
             </Picker>
             <Picker
                 selectedValue={toCurrency}
@@ -25,7 +25,7 @@ export default function HomeScreen({ navigation }) {
                 style={styles.picker}>
                 <Picker.Item label="USD" value="USD" />
                 <Picker.Item label="EUR" value="EUR" />
-                {/* Agrega más monedas según sea necesario */}
+                
             </Picker>
             <TextInput
                 placeholder="Cantidad"
